@@ -22,14 +22,15 @@ Requires [WP REST API](https://wordpress.org/plugins/json-rest-api/) and [Benson
 
 ## Shortcodes
 
-```
-[sifter]
-```
+### ``` [sifter] ```
 
 
 | Attribute        		 | Default  | Description   
 | :--------------------- | :------- | :------------- 
 | post_name              | Posts    | Display name in output.
+
+
+![](http://i.imgur.com/awMJcus.png)
 
 
 ## Frequently Asked Questions
