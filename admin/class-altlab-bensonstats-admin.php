@@ -157,6 +157,13 @@ class Altlab_Bensonstats_Admin {
 
 					</table>
 
+      <div ng-show='spinner' class='spinner-wrap'>
+        <div class='spinner'>
+          <div class='ball'></div>
+          <p>LOADING</p>
+        </div>
+      </div>
+
 					<div dir-paginate='
 						post in data | 
 						filter:search | 
@@ -170,7 +177,7 @@ class Altlab_Bensonstats_Admin {
 				  
 				  </div>
 
-					<dir-pagination-controls boundary-links='true' on-page-change='pageChangeHandler(newPageNumber)' template-url='".get_stylesheet_directory_uri()."/dirPagination.tpl.html'></dir-pagination-controls>
+					<dir-pagination-controls boundary-links='true' on-page-change='pageChangeHandler(newPageNumber)' template-url='".plugin_dir_url( __FILE__ )."/templates/dirPagination.tpl.html'></dir-pagination-controls>
 
 				</div>
 		    ";
