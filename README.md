@@ -3,7 +3,7 @@
 Requires at least: 3.0.1
 Tested up to: 4.2.2
 
-Benson extension for canned stats
+[Benson](https://github.com/VCUarts/benson) extension for canned stats
 
 ## Description
 
