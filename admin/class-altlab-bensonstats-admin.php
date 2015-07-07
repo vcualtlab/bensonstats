@@ -102,18 +102,18 @@ class Altlab_Bensonstats_Admin {
 
 	public function shortcodes() {
         
-        function post_stats_func( $atts ) {
+        function sifter_func( $atts ) {
 
 			$blogusers = get_users( array( 'fields' => array( 'display_name' ) ) ); 
-			$post_stats_authors = '';
+			$sifter_authors = '';
 
 			foreach ( $blogusers as $user ) {
-				$post_stats_authors .= '<option value="' . esc_html( $user->display_name ) . '">' . esc_html( $user->display_name ) . '</option>';
+				$sifter_authors .= '<option value="' . esc_html( $user->display_name ) . '">' . esc_html( $user->display_name ) . '</option>';
 			}
 
 
 		    $a = shortcode_atts( array(
-		        'post-name' => 'Posts',
+		        'post_name' => 'Posts',
 		    ), $atts );
 
 		    return "
@@ -127,7 +127,7 @@ class Altlab_Bensonstats_Admin {
 					<p class='filters'>
 						<select name='select' ng-model='search.title'>
 						  <option value='' selected='selected'>Select Author</option>
-						  ".$post_stats_authors."
+						  ".$sifter_authors."
 						</select>	
 					</p>
 
@@ -136,17 +136,16 @@ class Altlab_Bensonstats_Admin {
 
 					<table>
 					<tr>
-						<td>All ".$a['post-name']."</td>
+						<td>All ".$a['post_name']."</td>
 						<td>{{data.length}}</td>
 					</tr>
-
 					<tr>
-						<td>".$a['post-name']." by <strong>{{search.title && search.title  || '...' }}</strong></td>
+						<td>".$a['post_name']." by <strong>{{search.title && search.title  || '...' }}</strong></td>
 						<td>{{(data|filter:search).length}}</td>
 					</tr>
 
 					<tr>
-						<td>".$a['post-name']." about <strong>{{search && search.$ || '...' }}</strong></td>
+						<td>".$a['post_name']." about <strong>{{search && search.$ || '...' }}</strong></td>
 						<td>{{(data|filter:search).length}}</td>
 					</tr>
 
@@ -176,7 +175,7 @@ class Altlab_Bensonstats_Admin {
 				</div>
 		    ";
 		}
-		add_shortcode( 'post-stats', 'post_stats_func' );
+		add_shortcode( 'sifter', 'sifter_func' );
     }
 
 }
