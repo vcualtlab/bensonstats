@@ -100,4 +100,83 @@ class Altlab_Bensonstats_Admin {
 
 	}
 
+	public function shortcodes() {
+        
+        function post_stats_func( $atts ) {
+
+			$blogusers = get_users( array( 'fields' => array( 'display_name' ) ) ); 
+			$post_stats_authors = '';
+
+			foreach ( $blogusers as $user ) {
+				$post_stats_authors .= '<option value="' . esc_html( $user->display_name ) . '">' . esc_html( $user->display_name ) . '</option>';
+			}
+
+
+		    $a = shortcode_atts( array(
+		        'post-name' => 'Posts',
+		    ), $atts );
+
+		    return "
+				<div ng-app='benson'>
+				  <div ng-controller='MainController'>
+
+					<p class='ng-search'>
+						<input ng-model='search.$' placeholder='search'>
+					</p>
+
+					<p class='filters'>
+						<select name='select' ng-model='search.title'>
+						  <option value='' selected='selected'>Select Author</option>
+						  ".$post_stats_authors."
+						</select>	
+					</p>
+
+
+					{{ data.Math = window.Math }}
+
+					<table>
+					<tr>
+						<td>All ".$a['post-name']."</td>
+						<td>{{data.length}}</td>
+					</tr>
+
+					<tr>
+						<td>".$a['post-name']." by {{search.title && search.title  || '...' }}</td>
+						<td>{{(data|filter:search).length}}</td>
+					</tr>
+
+					<tr>
+						<td>".$a['post-name']." about {{search && search.$ || '...' }}</td>
+						<td>{{(data|filter:search).length}}</td>
+					</tr>
+
+					<tr>
+						<td>Percent of total</td>
+						<td>{{ (data|filter:search).length/data.length*100 | number:0 }}%</td>
+					</tr>
+
+
+					</table>
+
+					<div dir-paginate='
+						post in data | 
+						filter:search | 
+						itemsPerPage: 10
+					'>
+
+					<div>
+				      <h2><a href='{{post.link}}'>{{post.title}}</a></h2>
+				      <div ng-bind-html='post.content'>{{post.content}}</div>
+				    </div>
+				  
+				  </div>
+
+					<dir-pagination-controls boundary-links='true' on-page-change='pageChangeHandler(newPageNumber)' template-url='".get_stylesheet_directory_uri()."/dirPagination.tpl.html'></dir-pagination-controls>
+
+				</div>
+		    ";
+		}
+		add_shortcode( 'post-stats', 'post_stats_func' );
+    }
+
 }
