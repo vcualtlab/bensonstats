@@ -141,12 +141,12 @@ class Altlab_Bensonstats_Admin {
 					</tr>
 
 					<tr>
-						<td>".$a['post-name']." by {{search.title && search.title  || '...' }}</td>
+						<td>".$a['post-name']." by <strong>{{search.title && search.title  || '...' }}</strong></td>
 						<td>{{(data|filter:search).length}}</td>
 					</tr>
 
 					<tr>
-						<td>".$a['post-name']." about {{search && search.$ || '...' }}</td>
+						<td>".$a['post-name']." about <strong>{{search && search.$ || '...' }}</strong></td>
 						<td>{{(data|filter:search).length}}</td>
 					</tr>
 
