@@ -200,6 +200,10 @@ public function add_data_to_wp_json(){
 
 					<div>
 				      <h2><a href='{{post.link}}'>{{post.title}}</a></h2>
+					  <p class='post-meta'>
+						<small>Published by \"{{post.author.username}}\" on {{post.date}}</small>
+					  </p>
+
 				      <div ng-bind-html='post.".$a['post_output']."'>{{post.".$a['post_output']."}}</div>
 				    </div>
 				  
