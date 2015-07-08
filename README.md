@@ -24,10 +24,15 @@ Requires [WP REST API](https://wordpress.org/plugins/json-rest-api/) and [Benson
 
 ### ``` [sifter] ```
 
+#### attributes
 
-| Attribute        		 | Default  | Description   
-| :--------------------- | :------- | :------------- 
-| post_name              | Posts    | Display name in output.
+    post_name="Posts"      		 
+    // Display name in output
+     
+    post_output="excerpt"
+    // Outputs "excerpt" or "content" default is "excerpt"
+
+
 
 
 ![](http://i.imgur.com/awMJcus.png)

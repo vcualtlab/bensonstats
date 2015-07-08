@@ -100,6 +100,34 @@ class Altlab_Bensonstats_Admin {
 
 	}
 
+
+
+public function add_data_to_wp_json(){
+
+	// global $post;
+
+    function qod_add_custom_meta_to_posts( $data, $post, $context ) {
+      // We only want to modify the 'view' context, for reading posts
+      if ( $context !== 'view' || is_wp_error( $data ) ) {
+        return $data;
+      }
+
+	$author_id = $post['post_author'];
+
+      $author_display_name = get_the_author_meta( 'display_name', $author_id );
+
+      // if ( ! empty( $source ) ) {
+        // $data['author_display_name'] = $author_id;
+         $data['author_display_name'] = $author_display_name;
+      // }
+
+      return $data;
+    }
+
+    add_filter( 'json_prepare_post', 'qod_add_custom_meta_to_posts', 10, 3 );
+
+}
+
 	public function shortcodes() {
         
         function sifter_func( $atts ) {
@@ -111,9 +139,9 @@ class Altlab_Bensonstats_Admin {
 				$sifter_authors .= '<option value="' . esc_html( $user->display_name ) . '">' . esc_html( $user->display_name ) . '</option>';
 			}
 
-
 		    $a = shortcode_atts( array(
 		        'post_name' => 'Posts',
+		        'post_output' => 'excerpt',
 		    ), $atts );
 
 		    return "
@@ -125,7 +153,7 @@ class Altlab_Bensonstats_Admin {
 					</p>
 
 					<p class='filters'>
-						<select name='select' ng-model='search.title'>
+						<select name='select' ng-model='search.author_display_name'>
 						  <option value='' selected='selected'>Select Author</option>
 						  ".$sifter_authors."
 						</select>	
@@ -140,7 +168,7 @@ class Altlab_Bensonstats_Admin {
 						<td>{{data.length}}</td>
 					</tr>
 					<tr>
-						<td>".$a['post_name']." by <strong>{{search.title && search.title  || '...' }}</strong></td>
+						<td>".$a['post_name']." by <strong>{{search.author_display_name && search.author_display_name  || '...' }}</strong></td>
 						<td>{{(data|filter:search).length}}</td>
 					</tr>
 
@@ -172,7 +200,7 @@ class Altlab_Bensonstats_Admin {
 
 					<div>
 				      <h2><a href='{{post.link}}'>{{post.title}}</a></h2>
-				      <div ng-bind-html='post.content'>{{post.content}}</div>
+				      <div ng-bind-html='post.".$a['post_output']."'>{{post.".$a['post_output']."}}</div>
 				    </div>
 				  
 				  </div>
