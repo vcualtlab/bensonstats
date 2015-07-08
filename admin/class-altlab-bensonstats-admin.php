@@ -114,11 +114,11 @@ public function add_data_to_wp_json(){
 
 	$author_id = $post['post_author'];
 
-      $author_display_name = get_the_author_meta( 'display_name', $author_id );
+      $author_user_login = get_the_author_meta( 'user_login', $author_id );
 
       // if ( ! empty( $source ) ) {
-        // $data['author_display_name'] = $author_id;
-         $data['author_display_name'] = $author_display_name;
+        // $data['author_user_login'] = $author_id;
+         $data['author_user_login'] = $author_user_login;
       // }
 
       return $data;
@@ -132,11 +132,11 @@ public function add_data_to_wp_json(){
         
         function sifter_func( $atts ) {
 
-			$blogusers = get_users( array( 'fields' => array( 'display_name' ) ) ); 
+			$blogusers = get_users( array( 'fields' => array( 'user_login' ) ) ); 
 			$sifter_authors = '';
 
 			foreach ( $blogusers as $user ) {
-				$sifter_authors .= '<option value="' . esc_html( $user->display_name ) . '">' . esc_html( $user->display_name ) . '</option>';
+				$sifter_authors .= '<option value="' . esc_html( $user->user_login ) . '">' . esc_html( $user->user_login ) . '</option>';
 			}
 
 		    $a = shortcode_atts( array(
@@ -153,7 +153,7 @@ public function add_data_to_wp_json(){
 					</p>
 
 					<p class='filters'>
-						<select name='select' ng-model='search.author_display_name'>
+						<select name='select' ng-model='search.author_user_login'>
 						  <option value='' selected='selected'>Select Author</option>
 						  ".$sifter_authors."
 						</select>	
@@ -168,7 +168,7 @@ public function add_data_to_wp_json(){
 						<td>{{data.length}}</td>
 					</tr>
 					<tr>
-						<td>".$a['post_name']." by <strong>{{search.author_display_name && search.author_display_name  || '...' }}</strong></td>
+						<td>".$a['post_name']." by <strong>{{search.author_user_login && search.author_user_login  || '...' }}</strong></td>
 						<td>{{(data|filter:search).length}}</td>
 					</tr>
 
